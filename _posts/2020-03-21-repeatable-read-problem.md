@@ -20,7 +20,7 @@ CREATE TABLE `innodb_test` (
 
 表初始状态：
 
-{% highlight sql %}
+{% highlight console %}
 mysql> select * from innodb_test;
 +----+-------+-----------+
 | id | state | update_by |
@@ -32,7 +32,7 @@ mysql> select * from innodb_test;
 
 现在打开两个连接，分别开启两个事务，并在连接 2 里执行：
 
-{% highlight sql %}
+{% highlight console %}
 mysql> start transaction;
 Query OK, 0 rows affected (0.00 sec)
  
@@ -47,7 +47,7 @@ mysql> select * from innodb_test;
 
 切到连接 1，执行更新并提交事务：
 
-{% highlight sql %}
+{% highlight console %}
 mysql> update innodb_test set state = 1, update_by = '1' where id = 1;
 Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
@@ -65,7 +65,7 @@ mysql> commit;
 
 再切到连接 2，执行：
 
-{% highlight sql %}
+{% highlight console %}
 mysql> select * from innodb_test;
 +----+-------+-----------+
 | id | state | update_by |
