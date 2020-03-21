@@ -9,7 +9,7 @@ InnoDB 默认的事务隔离级别是 REPEATABLE READ，它能保证在同一个
 
 有这样一张表：
 
-{% highlight mysql %}
+{% highlight sql %}
 CREATE TABLE `innodb_test` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键 ID',
   `state` int(10) unsigned NOT NULL COMMENT 'state',
@@ -20,7 +20,7 @@ CREATE TABLE `innodb_test` (
 
 表初始状态：
 
-```mysql
+{% highlight sql %}
 mysql> select * from innodb_test;
 +----+-------+-----------+
 | id | state | update_by |
@@ -28,11 +28,11 @@ mysql> select * from innodb_test;
 |  1 |     0 |           |
 +----+-------+-----------+
 1 row in set (0.00 sec)
-```
+{% endhighlight %}
 
 现在打开两个连接，分别开启两个事务，并在连接 2 里执行：
 
-```mysql
+{% highlight sql %}
 mysql> start transaction;
 Query OK, 0 rows affected (0.00 sec)
  
@@ -43,11 +43,11 @@ mysql> select * from innodb_test;
 |  1 |     0 |           |
 +----+-------+-----------+
 1 row in set (0.00 sec)
-```
+{% endhighlight %}
 
 切到连接 1，执行更新并提交事务：
 
-```mysql
+{% highlight sql %}
 mysql> update innodb_test set state = 1, update_by = '1' where id = 1;
 Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
@@ -61,11 +61,11 @@ mysql> select * from innodb_test;
 1 row in set (0.00 sec)
  
 mysql> commit;
-```
+{% endhighlight %}
 
 再切到连接 2，执行：
 
-```mysql
+{% highlight sql %}
 mysql> select * from innodb_test;
 +----+-------+-----------+
 | id | state | update_by |
@@ -73,7 +73,7 @@ mysql> select * from innodb_test;
 |  1 |     0 |           |
 +----+-------+-----------+
 1 row in set (0.00 sec)
-```
+{% endhighlight %}
 
 发现这行数据没有变成连接 1 里更新的结果，而改为 `select * from innodb_test for update;` 则会变。
 
