@@ -9,14 +9,14 @@ InnoDB 默认的事务隔离级别是 REPEATABLE READ，它能保证在同一个
 
 有这样一张表：
 
-```mysql
+{% highlight mysql %}
 CREATE TABLE `innodb_test` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键 ID',
   `state` int(10) unsigned NOT NULL COMMENT 'state',
   `update_by` varchar(50) NOT NULL DEFAULT '' COMMENT 'update by',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='InnoDB test'
-```
+{% endhighlight %}
 
 表初始状态：
 
